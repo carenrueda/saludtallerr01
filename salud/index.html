@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud Laboral - Colombia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .min-vh-100 {
+            min-height: 100vh;
+        }
+        .seccion-contenedor {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        .valor-dato {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .unidad-dato {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-left: 5px;
+            margin-bottom: 8px;
+        }
+        .hora-actual {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .tarjeta-datos {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-pausa {
+            background-color: #198754;
+            color: white;
+        }
+        .btn-pausa:hover {
+            background-color: #157347;
+            color: white;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="bi bi-heart-pulse me-2"></i>Salud Laboral
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="puntos.html">
+                            <i class="bi bi-star me-1"></i>Puntos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="actividades.html">
+                            <i class="bi bi-activity me-1"></i>Actividades
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="configuracion.html">
+                            <i class="bi bi-gear me-1"></i>Configuración
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="container-fluid flex-grow-1 py-4">
+        <div class="row h-100 g-4">
+            <div class="col-lg-4 d-flex flex-column">
+                <div class="seccion-contenedor flex-grow-1">
+                    <h2 class="h3 mb-4"><i class="bi bi-speedometer2 me-2"></i>Estado Actual</h2>
+                    
+                    <div class="contenedor-puntos mb-4">
+                        <h3 class="h4">Puntos Acumulados</h3>
+                        <div class="valor-dato my-3" id="puntosAcumulados">0</div>
+                        <p class="mb-2 fs-5" id="modoDisplay"><i class="bi bi-person me-1"></i> Modo: Individual</p>
+                        <small class="text-muted">Puntos personales</small>
+                    </div>
+                    
+                    <div class="recordatorio mb-4">
+                        <h4 class="h4"><i class="bi bi-bell me-1"></i>Recordatorio</h4>
+                        <p class="mb-2 fs-5" id="recordatorioHidratacion">Recuerda hidratarte regularmente</p>
+                        <div class="progress mt-3" style="height: 10px;">
+                            <div class="progress-bar bg-warning progress-bar-striped" id="barraHidratacion" role="progressbar" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-auto">
+                        <button class="btn btn-outline-primary btn-lg" id="btnCambiarModo">
+                            <i class="bi bi-arrow-repeat me-1"></i>Cambiar a Grupo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="seccion-contenedor mt-4 flex-grow-1">
+                    <h2 class="h3 mb-4"><i class="bi bi-clock me-2"></i>Jornada Laboral</h2>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="fs-5">Inicio:</span>
+                        <strong class="fs-4" id="horaInicio">08:00</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="fs-5">Fin:</span>
+                        <strong class="fs-4" id="horaFin">17:00</strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <span class="fs-5">Hora actual:</span>
+                        <strong class="hora-actual" id="horaActual">14:25:36</strong>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="col-lg-8 d-flex flex-column">
+                <div class="seccion-contenedor flex-grow-1">
+                    <h2 class="h3 mb-4"><i class="bi bi-heart-pulse me-2"></i>Monitoreo de Salud</h2>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="tarjeta-datos h-100">
+                                <h3><i class="bi bi-heart me-1"></i>Pulsaciones</h3>
+                                <div class="d-flex align-items-end">
+                                    <span class="valor-dato" id="pulsaciones">72</span>
+                                    <span class="unidad-dato">lpm</span>
+                                </div>
+                                <small class="text-muted">Última actualización: <span id="actualizacionPulsaciones">14:25</span></small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="tarjeta-datos h-100">
+                                <h3><i class="bi bi-lungs me-1"></i>Oxígeno en Sangre</h3>
+                                <div class="d-flex align-items-end">
+                                    <span class="valor-dato" id="oxigeno">98</span>
+                                    <span class="unidad-dato">%</span>
+                                </div>
+                                <small class="text-muted">Última actualización: <span id="actualizacionOxigeno">14:25</span></small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="tarjeta-datos h-100">
+                                <h3><i class="bi bi-person-walking me-1"></i>Pasos</h3>
+                                <div class="d-flex align-items-end">
+                                    <span class="valor-dato" id="pasos">3,245</span>
+                                    <span class="unidad-dato">pasos</span>
+                                </div>
+                                <div class="progress mt-3" style="height: 10px;">
+                                    <div class="progress-bar bg-success progress-bar-striped" id="barraPasos" role="progressbar" style="width: 65%"></div>
+                                </div>
+                                <small class="text-muted">Meta diaria: 5,000 pasos</small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="tarjeta-datos h-100">
+                                <h3><i class="bi bi-fire me-1"></i>Calorías Quemadas</h3>
+                                <div class="d-flex align-items-end">
+                                    <span class="valor-dato" id="calorias">420</span>
+                                    <span class="unidad-dato">kcal</span>
+                                </div>
+                                <div class="progress mt-3" style="height: 10px;">
+                                    <div class="progress-bar bg-info progress-bar-striped" id="barraCalorias" role="progressbar" style="width: 35%"></div>
+                                </div>
+                                <small class="text-muted">Meta diaria: 1,200 kcal</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="seccion-contenedor mt-4 flex-grow-1">
+                    <h2 class="h3 mb-4"><i class="bi bi-alarm me-2"></i>Pausa Activa</h2>
+                    <div class="h-100 d-flex flex-column">
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-info-circle me-1"></i>
+                            <span class="fs-5">Próxima pausa activa en: <strong id="proximaPausa">01:35</strong></span>
+                        </div>
+                        <div class="d-grid gap-2 mt-auto">
+                            <button class="btn btn-pausa btn-lg" id="btnPausaActiva">
+                                <i class="bi bi-play-circle me-1"></i>Iniciar Pausa Activa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light py-3 border-top">
+        <div class="container text-center text-muted">
+            <small>Sistema de monitoreo de salud laboral - Hora Colombia</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            function actualizarHora() {
+                const ahora = new Date();
+                const horaActual = document.getElementById('horaActual');
+                if(horaActual) {
+                    horaActual.textContent = ahora.toLocaleTimeString('es-CO');
+                }
+                
+
+                const actualizaciones = document.querySelectorAll('[id^="actualizacion"]');
+                actualizaciones.forEach(el => {
+                    el.textContent = ahora.toLocaleTimeString('es-CO', {hour: '2-digit', minute:'2-digit'});
+                });
+            }
+            setInterval(actualizarHora, 1000);
+            actualizarHora();
+            
+
+            const btnCambiarModo = document.getElementById('btnCambiarModo');
+            if(btnCambiarModo) {
+                btnCambiarModo.addEventListener('click', function() {
+                    const modoDisplay = document.getElementById('modoDisplay');
+                    const puntosAcumulados = document.getElementById('puntosAcumulados');
+                    
+                    if(modoDisplay.textContent.includes('Individual')) {
+                        modoDisplay.innerHTML = '<i class="bi bi-people me-1"></i> Modo: Grupo';
+                        this.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i>Cambiar a Individual';
+                        this.classList.remove('btn-outline-primary');
+                        this.classList.add('btn-primary');
+                        
+
+                        localStorage.setItem('modoPuntos', 'grupo');
+                        
+
+                        if(puntosAcumulados) {
+                            puntosAcumulados.textContent = localStorage.getItem('puntosGrupo') || '0';
+                        }
+                    } else {
+                        modoDisplay.innerHTML = '<i class="bi bi-person me-1"></i> Modo: Individual';
+                        this.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i>Cambiar a Grupo';
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-outline-primary');
+                        
+
+                        localStorage.setItem('modoPuntos', 'individual');
+                        
+ 
+                        if(puntosAcumulados) {
+                            puntosAcumulados.textContent = localStorage.getItem('puntosIndividual') || '0';
+                        }
+                    }
+                });
+            }
+            
+
+            function cargarModoActual() {
+                const modo = localStorage.getItem('modoPuntos') || 'individual';
+                const btnCambiarModo = document.getElementById('btnCambiarModo');
+                const modoDisplay = document.getElementById('modoDisplay');
+                const puntosAcumulados = document.getElementById('puntosAcumulados');
+                
+                if(modo == 'grupo') {
+                    if(modoDisplay) modoDisplay.innerHTML = '<i class="bi bi-people me-1"></i> Modo: Grupo';
+                    if(btnCambiarModo) {
+                        btnCambiarModo.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i>Cambiar a Individual';
+                        btnCambiarModo.classList.remove('btn-outline-primary');
+                        btnCambiarModo.classList.add('btn-primary');
+                    }
+                    if(puntosAcumulados) puntosAcumulados.textContent = localStorage.getItem('puntosGrupo') || '0';
+                } else {
+                    if(modoDisplay) modoDisplay.innerHTML = '<i class="bi bi-person me-1"></i> Modo: Individual';
+                    if(btnCambiarModo) {
+                        btnCambiarModo.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i>Cambiar a Grupo';
+                        btnCambiarModo.classList.remove('btn-primary');
+                        btnCambiarModo.classList.add('btn-outline-primary');
+                    }
+                    if(puntosAcumulados) puntosAcumulados.textContent = localStorage.getItem('puntosIndividual') || '0';
+                }
+            }
+            cargarModoActual();
+            
+
+            function simularDatosSalud() {
+                const pulsaciones = document.getElementById('pulsaciones');
+                const oxigeno = document.getElementById('oxigeno');
+                const pasos = document.getElementById('pasos');
+                const calorias = document.getElementById('calorias');
+                
+                if(pulsaciones) pulsaciones.textContent = Math.floor(Math.random() * 20) + 60;
+                if(oxigeno) oxigeno.textContent = Math.floor(Math.random() * 3) + 96;
+                if(pasos) pasos.textContent = (Math.floor(Math.random() * 2000) + 3000).toLocaleString();
+                if(calorias) calorias.textContent = Math.floor(Math.random() * 300) + 400;
+                
+
+                const barraPasos = document.getElementById('barraPasos');
+                const barraCalorias = document.getElementById('barraCalorias');
+                const barraHidratacion = document.getElementById('barraHidratacion');
+                
+                if(barraPasos) barraPasos.style.width = `${Math.floor(Math.random() * 30) + 50}%`;
+                if(barraCalorias) barraCalorias.style.width = `${Math.floor(Math.random() * 30) + 30}%`;
+                if(barraHidratacion) barraHidratacion.style.width = `${Math.floor(Math.random() * 30) + 40}%`;
+            }
+            
+
+            setInterval(simularDatosSalud, 5000);
+            simularDatosSalud();
+            
+
+            function actualizarProximaPausa() {
+                const elementos = [
+                    document.getElementById('proximaPausa')
+                ];
+                
+                elementos.forEach(el => {
+                    if(el) {
+                        const intervalo = localStorage.getItem('intervaloPausas') || 150; // 2.5 horas por defecto
+                        
+                        const ahora = new Date();
+                        const minutos = ahora.getMinutes();
+                        const segundos = ahora.getSeconds();
+                        
+
+                        const minutosParaPausa = (parseInt(intervalo) - (minutos % parseInt(intervalo) + segundos/60)) % parseInt(intervalo);
+                        const horas = Math.floor(minutosParaPausa / 60);
+                        const mins = Math.floor(minutosParaPausa % 60);
+                        const segs = Math.floor((minutosParaPausa % 1) * 60);
+                        
+                        el.textContent = `${horas > 0 ? horas.toString().padStart(2, '0') + ':' : ''}${mins.toString().padStart(2, '0')}:${segs.toString().padStart(2, '0')}`;
+                    }
+                });
+            }
+            
+            setInterval(actualizarProximaPausa, 1000);
+            actualizarProximaPausa();
+            
+
+            const btnPausaActiva = document.getElementById('btnPausaActiva');
+            if(btnPausaActiva) {
+                btnPausaActiva.addEventListener('click', function() {
+                    window.location.href = 'actividades.html';
+                });
+            }
+            
+
+            function cargarHorarioLaboral() {
+                const horaEntrada = localStorage.getItem('horaEntrada') || '08:00';
+                const horaSalida = localStorage.getItem('horaSalida') || '17:00';
+                document.getElementById('horaInicio').textContent = horaEntrada;
+                document.getElementById('horaFin').textContent = horaSalida;
+            }
+            cargarHorarioLaboral();
+            
+
+            const recordatorios = [
+                "Recuerda hidratarte regularmente",
+                "Ajusta tu postura para evitar tensión",
+                "Parpadea con frecuencia para cuidar tus ojos",
+                "Estira tus piernas cada hora",
+                "Respira profundamente para relajarte"
+            ];
+            
+            function cambiarRecordatorio() {
+                const recordatorio = document.getElementById('recordatorioHidratacion');
+                if(recordatorio) {
+                    const randomIndex = Math.floor(Math.random() * recordatorios.length);
+                    recordatorio.textContent = recordatorios[randomIndex];
+                }
+            }
+            
+            setInterval(cambiarRecordatorio, 10000);
+            cambiarRecordatorio();
+        });
+    </script>
+</body>
+</html>

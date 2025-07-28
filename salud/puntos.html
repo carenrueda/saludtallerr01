@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntos - Salud Laboral</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .min-vh-100 {
+            min-height: 100vh;
+        }
+        .seccion-contenedor {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .valor-dato {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .table {
+            font-size: 0.95rem;
+        }
+        .table th {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="bi bi-heart-pulse me-2"></i>Salud Laboral
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5" href="puntos.html">
+                            <i class="bi bi-star me-1"></i>Puntos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="actividades.html">
+                            <i class="bi bi-activity me-1"></i>Actividades
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-5" href="configuracion.html">
+                            <i class="bi bi-gear me-1"></i>Configuración
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="container-fluid flex-grow-1 py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="seccion-contenedor p-4 mb-4">
+                    <h2 class="h3 mb-4"><i class="bi bi-trophy me-2"></i>Sistema de Puntos</h2>
+                    
+                    <div class="alert alert-info mb-4">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <span id="modoPuntosDisplay">Actualmente estás acumulando puntos en modo <strong>Individual</strong> (Días de permiso)</span>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6" id="modoIndividual">
+                            <div class="card h-100 border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h3 class="h4 mb-0"><i class="bi bi-person me-1"></i> Modo Individual</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="h5 text-primary">Beneficios:</h4>
+                                    <ul class="mb-3">
+                                        <li>Días de permiso remunerado</li>
+                                        <li>Bonos de productividad</li>
+                                        <li>Reconocimientos personales</li>
+                                    </ul>
+                                    
+                                    <div class="mb-3">
+                                        <h5 class="h6">Puntos acumulados:</h5>
+                                        <div class="d-flex align-items-center">
+                                            <span class="valor-dato me-2" id="puntosIndividual">1,250</span>
+                                            <span class="badge bg-primary rounded-pill">50%</span>
+                                        </div>
+                                        <div class="progress mt-2">
+                                            <div class="progress-bar bg-primary" style="width: 50%"></div>
+                                        </div>
+                                        <small class="text-muted">Faltan 1,250 puntos para tu próximo día de permiso</small>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary w-100 mt-2" id="btnActivarIndividual">
+                                        <i class="bi bi-check-circle me-1"></i>Activar Modo Individual
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-md-6" id="modoGrupo">
+                            <div class="card h-100 border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h3 class="h4 mb-0"><i class="bi bi-people me-1"></i> Modo Grupo</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="h5 text-success">Beneficios:</h4>
+                                    <ul class="mb-3">
+                                        <li>Bonificaciones económicas grupales</li>
+                                        <li>Actividades de integración</li>
+                                        <li>Premios colectivos</li>
+                                    </ul>
+                                    
+                                    <div class="mb-3">
+                                        <h5 class="h6">Puntos del equipo:</h5>
+                                        <div class="d-flex align-items-center">
+                                            <span class="valor-dato me-2" id="puntosGrupo">3,780</span>
+                                            <span class="badge bg-success rounded-pill">25%</span>
+                                        </div>
+                                        <div class="progress mt-2">
+                                            <div class="progress-bar bg-success" style="width: 25%"></div>
+                                        </div>
+                                        <small class="text-muted">Faltan 11,220 puntos para la próxima bonificación grupal</small>
+                                    </div>
+                                    
+                                    <button class="btn btn-outline-success w-100 mt-2" id="btnActivarGrupo">
+                                        <i class="bi bi-check-circle me-1"></i>Activar Modo Grupo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="seccion-contenedor p-4">
+                    <h2 class="h3 mb-4"><i class="bi bi-award me-2"></i>Historial de Puntos</h2>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Actividad</th>
+                                    <th>Puntos</th>
+                                    <th>Modo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10/07/2023</td>
+                                    <td>Pausa activa completa</td>
+                                    <td class="text-success">+50</td>
+                                    <td><span class="badge bg-primary">Individual</span></td>
+                                </tr>
+                                <tr>
+                                    <td>09/07/2023</td>
+                                    <td>Meta de pasos alcanzada</td>
+                                    <td class="text-success">+100</td>
+                                    <td><span class="badge bg-primary">Individual</span></td>
+                                </tr>
+                                <tr>
+                                    <td>08/07/2023</td>
+                                    <td>Participación grupal en pausa</td>
+                                    <td class="text-success">+75</td>
+                                    <td><span class="badge bg-success">Grupo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>07/07/2023</td>
+                                    <td>Hidratación completa</td>
+                                    <td class="text-success">+30</td>
+                                    <td><span class="badge bg-primary">Individual</span></td>
+                                </tr>
+                                <tr>
+                                    <td>06/07/2023</td>
+                                    <td>Bonificación por productividad</td>
+                                    <td class="text-success">+200</td>
+                                    <td><span class="badge bg-primary">Individual</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light py-3 border-top">
+        <div class="container text-center text-muted">
+            <small>Sistema de monitoreo de salud laboral - Hora Colombia</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function cargarDatosPuntos() {
+                const puntosIndividual = localStorage.getItem('puntosIndividual') || '1250';
+                const puntosGrupo = localStorage.getItem('puntosGrupo') || '3780';
+                const modoActual = localStorage.getItem('modoPuntos') || 'individual';
+                
+                document.getElementById('puntosIndividual').textContent = parseInt(puntosIndividual).toLocaleString();
+                document.getElementById('puntosGrupo').textContent = parseInt(puntosGrupo).toLocaleString();
+                
+
+                const modoDisplay = document.getElementById('modoPuntosDisplay');
+                if(modoDisplay) {
+                    if(modoActual == 'grupo') {
+                        modoDisplay.innerHTML = 'Actualmente estás acumulando puntos en modo <strong>Grupo</strong> (Bonificaciones colectivas)';
+                    } else {
+                        modoDisplay.innerHTML = 'Actualmente estás acumulando puntos en modo <strong>Individual</strong> (Días de permiso)';
+                    }
+                }
+                
+
+                const btnIndividual = document.getElementById('btnActivarIndividual');
+                const btnGrupo = document.getElementById('btnActivarGrupo');
+                
+                if(modoActual == 'grupo') {
+                    if(btnIndividual) {
+                        btnIndividual.classList.remove('btn-primary');
+                        btnIndividual.classList.add('btn-outline-primary');
+                    }
+                    if(btnGrupo) {
+                        btnGrupo.classList.remove('btn-outline-success');
+                        btnGrupo.classList.add('btn-success');
+                    }
+                } else {
+                    if(btnIndividual) {
+                        btnIndividual.classList.remove('btn-outline-primary');
+                        btnIndividual.classList.add('btn-primary');
+                    }
+                    if(btnGrupo) {
+                        btnGrupo.classList.remove('btn-success');
+                        btnGrupo.classList.add('btn-outline-success');
+                    }
+                }
+            }
+            cargarDatosPuntos();
+            
+
+            const btnActivarIndividual = document.getElementById('btnActivarIndividual');
+            const btnActivarGrupo = document.getElementById('btnActivarGrupo');
+            
+            if(btnActivarIndividual && btnActivarGrupo) {
+                btnActivarIndividual.addEventListener('click', function() {
+
+                    localStorage.setItem('modoPuntos', 'individual');
+                    
+
+                    this.classList.add('btn-primary');
+                    this.classList.remove('btn-outline-primary');
+                    btnActivarGrupo.classList.add('btn-outline-success');
+                    btnActivarGrupo.classList.remove('btn-success');
+                    
+
+                    document.getElementById('modoPuntosDisplay').innerHTML = 
+                        'Actualmente estás acumulando puntos en modo <strong>Individual</strong> (Días de permiso)';
+                });
+                
+                btnActivarGrupo.addEventListener('click', function() {
+
+                    localStorage.setItem('modoPuntos', 'grupo');
+                    
+
+                    this.classList.add('btn-success');
+                    this.classList.remove('btn-outline-success');
+                    btnActivarIndividual.classList.add('btn-outline-primary');
+                    btnActivarIndividual.classList.remove('btn-primary');
+                    
+
+                    document.getElementById('modoPuntosDisplay').innerHTML = 
+                        'Actualmente estás acumulando puntos en modo <strong>Grupo</strong> (Bonificaciones colectivas)';
+                });
+            }
+            
+
+            function simularActualizacionPuntos() {
+                const modo = localStorage.getItem('modoPuntos') || 'individual';
+                
+                if(modo == 'individual') {
+                    const puntosActuales = parseInt(localStorage.getItem('puntosIndividual') || '1250');
+                    const nuevosPuntos = puntosActuales + Math.floor(Math.random() * 50);
+                    localStorage.setItem('puntosIndividual', nuevosPuntos.toString());
+                    document.getElementById('puntosIndividual').textContent = nuevosPuntos.toLocaleString();
+                    
+                    
+                    const progreso = (nuevosPuntos / 2500) * 100;
+                    document.querySelector('#modoIndividual .progress-bar').style.width = `${Math.min(progreso, 100)}%`;
+                    document.querySelector('#modoIndividual .badge').textContent = `${Math.min(Math.floor(progreso), 100)}%`;
+                } else {
+                    const puntosActuales = parseInt(localStorage.getItem('puntosGrupo') || '3780');
+                    const nuevosPuntos = puntosActuales + Math.floor(Math.random() * 100);
+                    localStorage.setItem('puntosGrupo', nuevosPuntos.toString());
+                    document.getElementById('puntosGrupo').textContent = nuevosPuntos.toLocaleString();
+                    
+
+                    const progreso = (nuevosPuntos / 15000) * 100;
+                    document.querySelector('#modoGrupo .progress-bar').style.width = `${Math.min(progreso, 100)}%`;
+                    document.querySelector('#modoGrupo .badge').textContent = `${Math.min(Math.floor(progreso), 100)}%`;
+                }
+            }
+            
+
+            setInterval(simularActualizacionPuntos, 10000);
+        });
+    </script>
+</body>
+</html>
